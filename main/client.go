@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	// Request /hello over port 8080 via the GET method
+	// Request /hello over port 8443 via the GET method
 	// TLS
 	caCert, err := os.ReadFile("./certificates/cert.pem")
 	if err != nil {
@@ -20,11 +20,17 @@ func main() {
 	caCertPool := x509.NewCertPool()
 	caCertPool.AppendCertsFromPEM(caCert)
 
+	cert, err := tls.LoadX509KeyPair("./certificates/cert.pem", "./certificates/key.pem")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Create an HTTPS client and supply the created CA pool
 	client := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
 				RootCAs: caCertPool,
+				Certificates: []tls.Certificate{cert},
 			},
 		},
 	}
