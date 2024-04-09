@@ -4,7 +4,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"fmt"
 	"crypto/tls"
 	"crypto/x509"
 	"os"
@@ -43,5 +42,5 @@ func main() {
 	}
 
 	// Print the response body to stdout
-	fmt.Printf("%s\n", body)
+	log.Printf("%s\n", body)
 }

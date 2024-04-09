@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -13,7 +12,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("Server started with endpoint /hello on port 8080")
+	log.Println("Server started with endpoint /hello on port 8080")
 	// Set up a /hello resource handler
 	http.HandleFunc("/hello", helloHandler)
 
