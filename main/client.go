@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	// Request /hello over port 8080 via the GET method
+	// Request /hello over port 8443 via the GET method
 	// TLS
 	caCert, err := os.ReadFile("./certificates/cert.pem")
 	if err != nil {
