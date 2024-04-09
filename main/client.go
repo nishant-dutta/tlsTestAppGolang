@@ -4,7 +4,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"fmt"
 )
 
 func main() {
@@ -23,5 +22,5 @@ func main() {
 	}
 
 	// Print the response body to stdout
-	fmt.Printf("%s\n", body)
+	log.Printf("%s\n", body)
 }
