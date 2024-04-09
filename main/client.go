@@ -5,12 +5,32 @@ import (
 	"log"
 	"net/http"
 	"fmt"
+	"crypto/tls"
+	"crypto/x509"
+	"os"
 )
 
 func main() {
 	// Request /hello over port 8080 via the GET method
-	// NON_TLS
-	r, err := http.Get("http://localhost:8080/hello")
+	// TLS
+	caCert, err := os.ReadFile("./certificates/cert.pem")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	caCertPool := x509.NewCertPool()
+	caCertPool.AppendCertsFromPEM(caCert)
+
+	// Create an HTTPS client and supply the created CA pool
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				RootCAs: caCertPool,
+			},
+		},
+	}
+
+	r, err := client.Get("https://localhost:8443/hello")
 	if err != nil {
 		log.Fatal(err)
 	}
